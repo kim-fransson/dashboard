@@ -1,10 +1,11 @@
 <script setup>
+import CollapsableSidebar from './components/CollapsableSidebar.vue';
+
 
 </script>
 
 <template>
-  <h2>Vuetify</h2>
-  <v-btn prepend-icon="$vuetify">
-    Button
-  </v-btn>
+  <v-app>
+    <CollapsableSidebar />
+  </v-app>
 </template>
