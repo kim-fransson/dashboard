@@ -25,20 +25,18 @@ const navItems = ref([
 </script>
 
 <template>
-    <v-layout>
-        <v-navigation-drawer v-model="drawer" :rail="rail" permanent @click="rail = false">
-            <v-list-item :prepend-avatar="logo" title="FindData" nav>
-                <template v-slot:append>
-                    <v-btn icon="mdi-chevron-left" variant="text" @click.stop="rail = !rail"></v-btn>
-                </template>
-            </v-list-item>
+    <v-navigation-drawer v-model="drawer" :rail="rail" permanent @click="rail = false">
+        <v-list-item :prepend-avatar="logo" title="FindData" nav>
+            <template v-slot:append>
+                <v-btn icon="mdi-chevron-left" variant="text" @click.stop="rail = !rail"></v-btn>
+            </template>
+        </v-list-item>
 
-            <v-list nav>
-                <template v-for="(item, index) in navItems" :key="index">
-                    <v-divider v-if="item.divider" :thickness="2"></v-divider>
-                    <v-list-item v-else :prepend-icon="item.icon" :title="item.title" :value="item.value"></v-list-item>
-                </template>
-            </v-list>
-        </v-navigation-drawer>
-    </v-layout>
+        <v-list nav>
+            <template v-for="(item, index) in navItems" :key="index">
+                <v-divider v-if="item.divider" :thickness="2"></v-divider>
+                <v-list-item v-else :prepend-icon="item.icon" :title="item.title" :value="item.value"></v-list-item>
+            </template>
+        </v-list>
+    </v-navigation-drawer>
 </template>
