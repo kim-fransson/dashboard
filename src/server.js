@@ -1,5 +1,7 @@
-import { faker } from '@faker-js/faker'
 import { createServer, Model, Factory } from 'miragejs'
+import { generateNumbersData } from '@/utils/generateNumbersData'
+import { getLastMonths } from './utils/getLastMonths'
+import { generateRandomAmounts } from './utils/generateRandomAmounts'
 
 export function makeServer({ environment = 'test' }) {
   return createServer({
@@ -12,65 +14,38 @@ export function makeServer({ environment = 'test' }) {
       this.get('/numbers', () => {
         return {
           numbers: [
-            {
-              id: 1,
-              name: 'Total income',
-              value: faker.finance.amount({
-                min: 1000,
-                max: 99999,
-                dec: 2,
-                symbol: '$',
-                autoFormat: true
-              }),
-              compareToLastMonth: {
-                sign: faker.helpers.arrayElement(['+', '-']),
-                value: faker.finance.amount({ min: 0, max: 25, dec: 2 })
-              }
-            },
-            {
-              id: 2,
-              name: 'Profit',
-              value: faker.finance.amount({
-                min: 1000,
-                max: 9999,
-                dec: 2,
-                symbol: '$',
-                autoFormat: true
-              }),
-              compareToLastMonth: {
-                sign: faker.helpers.arrayElement(['+', '-']),
-                value: faker.finance.amount({ min: 0, max: 25, dec: 2 })
-              }
-            },
-            {
-              id: 3,
-              name: 'Total views',
-              value: faker.finance.amount({
-                min: 10000,
-                max: 999999,
-                dec: 0,
-                autoFormat: true
-              }),
-              compareToLastMonth: {
-                sign: faker.helpers.arrayElement(['+', '-']),
-                value: faker.finance.amount({ min: 0, max: 25, dec: 2 })
-              }
-            },
-            {
-              id: 4,
-              name: 'Conversion rate',
-              value: faker.finance.amount({
-                min: 1,
-                max: 25,
-                dec: 2
-              }),
-              postfix: '%',
-              compareToLastMonth: {
-                sign: faker.helpers.arrayElement(['+', '-']),
-                value: faker.finance.amount({ min: 0, max: 25, dec: 2 })
-              }
-            }
+            generateNumbersData(1, 'Total income', 1000, 99999, 2, '$'),
+            generateNumbersData(2, 'Profit', 1000, 9999, 2, '$'),
+            generateNumbersData(3, 'Total views', 10000, 999999, 0),
+            generateNumbersData(4, 'Conversion rate', 1, 25, 2, '', '%')
           ]
+        }
+      })
+      this.get('/sales/overview', () => {
+        return {
+          data: {
+            labels: getLastMonths(10),
+            datasets: [
+              {
+                label: 'Total Revenue',
+                data: generateRandomAmounts(10, 10000, 20000),
+                borderColor: '#696ffb',
+                backgroundColor: '#696ffb',
+                tension: 0.1,
+                borderWidth: 3,
+                pointRadius: 0
+              },
+              {
+                label: 'Total Target',
+                data: generateRandomAmounts(10, 10000, 20000),
+                borderColor: '#ff9e2b',
+                backgroundColor: '#ff9e2b',
+                tension: 0.1,
+                borderWidth: 3,
+                pointRadius: 0
+              }
+            ]
+          }
         }
       })
     },
