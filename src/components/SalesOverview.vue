@@ -41,7 +41,7 @@ const revenueData = ref([
     <v-card v-if="loaded" class="pa-4">
         <header class="d-flex  justify-space-between align-center mb-8">
             <h2 class="text-h6">Sales Overview</h2>
-            <div class="d-flex ga-4">
+            <div class="d-flex flex-wrap ga-4">
                 <div v-for="item in revenueData" :key="item.label">
                     <div class="text-sm text-grey">
                         <v-icon :style="{ color: item.iconColor }" icon="mdi-circle-medium"></v-icon>

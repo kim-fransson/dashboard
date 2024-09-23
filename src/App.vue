@@ -32,7 +32,7 @@ onMounted(async () => {
       <TopNavigation />
 
       <v-main>
-        <v-container fluid="true" class="mt-lg-10">
+        <v-container :fluid="true" class="mt-lg-10">
           <v-row>
             <v-col v-for="number in numbers" :key="number.id">
               <NumberCard :number />
@@ -40,11 +40,11 @@ onMounted(async () => {
           </v-row>
 
           <v-row>
-            <v-col cols="8">
+            <v-col cols="12" md="8">
               <SalesOverview />
             </v-col>
 
-            <v-col cols="4">
+            <v-col cols="12" md="4">
               <SalesRegion />
             </v-col>
           </v-row>

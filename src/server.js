@@ -2,6 +2,7 @@ import { createServer, Model, Factory } from 'miragejs'
 import { generateNumbersData } from '@/utils/generateNumbersData'
 import { getLastMonths } from './utils/getLastMonths'
 import { generateRandomAmounts } from './utils/generateRandomAmounts'
+import { faker } from '@faker-js/faker'
 
 export function makeServer({ environment = 'test' }) {
   return createServer({
@@ -54,14 +55,13 @@ export function makeServer({ environment = 'test' }) {
             labels: ['Europe', 'America', 'Africa', 'Middle East', 'Pacific', 'Asia'],
             datasets: [
               {
-                label: 'My First dataset',
-                backgroundColor: '#5f64e2',
-                borderColor: '#696ffb',
-                pointBackgroundColor: '#696ffb',
+                backgroundColor: 'rgba(105, 111, 251)',
+                borderColor: 'rgba(105, 111, 251, 0.8)',
+                pointBackgroundColor: 'rgba(105, 111, 251, 0.8)',
                 pointBorderColor: '#fff',
                 pointHoverBackgroundColor: '#fff',
                 pointHoverBorderColor: 'rgba(179,181,198,1)',
-                data: [2201, 2865, 1762, 1591, 1749, 2745]
+                data: Array.from({ length: 6 }, () => faker.number.int({ min: 1250, max: 3000 }))
               }
             ]
           }
