@@ -22,7 +22,7 @@ ChartJS.register(
     Legend
 )
 
-const alternatingBackgroundColors = ['#35387e', '#2e316d'];
+const alternatingBackgroundColors = ['rgba(105, 111, 251, 0.20)', 'rgba(105, 111, 251, 0.12)'];
 
 const backgroundPlugin = {
     id: 'backgroundPlugin',
