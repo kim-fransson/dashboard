@@ -4,6 +4,7 @@ import CollapsableSidebar from './components/CollapsableSidebar.vue';
 import TopNavigation from './components/TopNavigation.vue';
 import NumberCard from './components/NumberCard.vue';
 import SalesOverview from './components/SalesOverview.vue';
+import SalesRegion from './components/SalesRegion.vue';
 
 const numbers = ref([])
 const loading = ref(false)
@@ -31,7 +32,7 @@ onMounted(async () => {
       <TopNavigation />
 
       <v-main>
-        <v-container class="mt-lg-10">
+        <v-container fluid="true" class="mt-lg-10">
           <v-row>
             <v-col v-for="number in numbers" :key="number.id">
               <NumberCard :number />
@@ -43,7 +44,9 @@ onMounted(async () => {
               <SalesOverview />
             </v-col>
 
-            <v-col></v-col>
+            <v-col cols="4">
+              <SalesRegion />
+            </v-col>
           </v-row>
         </v-container>
       </v-main>

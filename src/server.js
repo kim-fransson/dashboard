@@ -48,6 +48,25 @@ export function makeServer({ environment = 'test' }) {
           }
         }
       })
+      this.get('/sales/regions', () => {
+        return {
+          data: {
+            labels: ['Europe', 'America', 'Africa', 'Middle East', 'Pacific', 'Asia'],
+            datasets: [
+              {
+                label: 'My First dataset',
+                backgroundColor: '#5f64e2',
+                borderColor: '#696ffb',
+                pointBackgroundColor: '#696ffb',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgba(179,181,198,1)',
+                data: [2201, 2865, 1762, 1591, 1749, 2745]
+              }
+            ]
+          }
+        }
+      })
     },
     seeds(server) {},
     factories: {}
