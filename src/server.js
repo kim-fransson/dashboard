@@ -55,12 +55,6 @@ export function makeServer({ environment = 'test' }) {
             labels: ['Europe', 'America', 'Africa', 'Middle East', 'Pacific', 'Asia'],
             datasets: [
               {
-                backgroundColor: 'rgba(105, 111, 251)',
-                borderColor: 'rgba(105, 111, 251, 0.8)',
-                pointBackgroundColor: 'rgba(105, 111, 251, 0.8)',
-                pointBorderColor: '#fff',
-                pointHoverBackgroundColor: '#fff',
-                pointHoverBorderColor: 'rgba(179,181,198,1)',
                 data: Array.from({ length: 6 }, () => faker.number.int({ min: 1250, max: 3000 }))
               }
             ]
@@ -73,7 +67,6 @@ export function makeServer({ environment = 'test' }) {
             labels: ['Premium Users', 'Basic Users'],
             datasets: [
               {
-                backgroundColor: ['rgba(105, 111, 251)', '#3a3d89'],
                 data: [
                   faker.number.int({ min: 500, max: 4000 }),
                   faker.number.int({ min: 200, max: 1000 })
@@ -83,8 +76,6 @@ export function makeServer({ environment = 'test' }) {
               // Background arc (lighter color)
               {
                 data: [1],
-                backgroundColor: ['rgba(105, 111, 251, 0.2)'],
-                hoverBackgroundColor: ['rgba(105, 111, 251, 0.2)'],
                 borderWidth: 0,
                 cutout: '72%'
               }

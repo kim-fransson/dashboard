@@ -2,9 +2,13 @@
 import { computed, onMounted, ref } from 'vue';
 import GaugeChart from './GaugeChart.vue';
 import { formatNumber } from '@/utils/formatNumber';
+import { useTheme } from 'vuetify/lib/framework.mjs';
 
 const loaded = ref(false)
 const data = ref(null)
+
+const theme = useTheme()
+const selectedTheme = ref(theme.global.current.value.dark ? 'dark' : 'light')
 
 onMounted(async () => {
     try {
@@ -26,7 +30,7 @@ const totalUser = computed(() => numberOfPremiumUsers.value + numberOfBasicUsers
 
 <template>
     <v-card v-if="loaded" class="pa-4">
-        <h2 class="text-h6">Registered Users</h2>
+        <h2 class="text-h6 font-weight-bold">Registered Users</h2>
         <div class="w-66 mx-auto mb-8 mt-4 position-relative">
             <GaugeChart :data />
             <div class="total-users">
@@ -34,7 +38,7 @@ const totalUser = computed(() => numberOfPremiumUsers.value + numberOfBasicUsers
                     <v-icon icon="mdi-account-circle"></v-icon>
                 </v-avatar>
                 <span class="text-h4 mt-2">{{ formatNumber(totalUser, 0) }}</span>
-                <span class="text-caption text-grey">Total users</span>
+                <span class="text-caption opacity-80">Total users</span>
             </div>
         </div>
         <div class="d-flex justify-space-between align-center">
@@ -49,7 +53,7 @@ const totalUser = computed(() => numberOfPremiumUsers.value + numberOfBasicUsers
             <div class="d-flex align-center ga-2">
                 <div>
                     <div class="text-end">{{ numberOfBasicUsers }}</div>
-                    <div class="text-caption text-grey">Basic Users</div>
+                    <div class="text-caption opacity-80">Basic Users</div>
                 </div>
                 <div class="pill basic" />
             </div>
@@ -73,8 +77,9 @@ const totalUser = computed(() => numberOfPremiumUsers.value + numberOfBasicUsers
 }
 
 .custom-avatar {
-    background: #3a3d89;
-    border: 3px solid #2e316d !important;
+    color: rgba(105, 111, 251) !important;
+    background: rgba(105, 111, 251, 0.2) !important;
+    border: 3px solid rgba(105, 111, 251, 0.2) !important;
 }
 
 .total-users {

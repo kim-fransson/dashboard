@@ -21,7 +21,7 @@ onMounted(async () => {
 
 <template>
     <v-card class="fill-height pa-4">
-        <h2 class="text-h6">Sales by Region</h2>
+        <h2 class="text-h6 font-weight-bold">Sales by Region</h2>
         <RadarChart v-if="loaded" :data />
     </v-card>
 </template>

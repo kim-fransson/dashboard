@@ -1,4 +1,6 @@
 <script setup>
+import ThemeToggle from './ThemeToggle.vue';
+
 
 </script>
 
@@ -7,8 +9,9 @@
         <v-app-bar-title>Dashboard</v-app-bar-title>
 
         <template v-slot:append>
-            <v-avatar color="info">
-                <v-icon icon="mdi-account-circle"></v-icon>
+            <ThemeToggle class="mr-4" />
+            <v-avatar size="small" color="#ff9e2b">
+                <v-icon icon="$smile"></v-icon>
             </v-avatar>
         </template>
     </v-app-bar>

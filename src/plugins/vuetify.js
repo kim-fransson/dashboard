@@ -12,12 +12,18 @@ import { aliases as defaultAliases } from 'vuetify/iconsets/mdi'
 import stripe from '@/assets/stripe.svg'
 import shopify from '@/assets/shopify.svg'
 import zapier from '@/assets/zapier.svg'
+import sun from '@/assets/sun.svg'
+import moon from '@/assets/moon.svg'
+import smile from '@/assets/smile.svg'
 
 const aliases = {
   ...defaultAliases,
   stripe,
   shopify,
-  zapier
+  zapier,
+  sun,
+  moon,
+  smile
 }
 
 export default createVuetify({

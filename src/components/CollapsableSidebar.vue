@@ -2,6 +2,7 @@
 import { ref } from "vue";
 
 import logo from '@/assets/logo.png'
+import ThemeToggle from "./ThemeToggle.vue";
 
 const drawer = ref(true);
 const rail = ref(true);

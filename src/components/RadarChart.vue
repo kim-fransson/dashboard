@@ -8,9 +8,14 @@ import {
     Tooltip,
     Legend
 } from 'chart.js'
+import { computed, ref, watch } from 'vue';
 import { Radar } from 'vue-chartjs'
+import { useTheme } from 'vuetify/lib/framework.mjs';
 
 const props = defineProps(['data', 'height'])
+
+const theme = useTheme()
+const selectedTheme = ref(theme.global.current.value.dark ? 'dark' : 'light')
 
 
 ChartJS.register(
@@ -22,7 +27,8 @@ ChartJS.register(
     Legend
 )
 
-const customLabelsPlugin = {
+const customLabelsPlugin =
+{
     id: 'customLabelsPlugin',
     afterDatasetsDraw(chart) {
         const ctx = chart.ctx;
@@ -43,13 +49,13 @@ const customLabelsPlugin = {
 
             // Render the first line (label)
             ctx.font = `14px ${ctx.font.split(' ').pop()}`;
-            ctx.fillStyle = '#9E9E9E';
+            ctx.fillStyle = selectedTheme.value === 'dark' ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.6)';
             ctx.textAlign = 'center';
             ctx.fillText(data[i], x, (y + 16) + offset); // Further reduced spacing
 
             // Render the second line (value)
             ctx.font = `bold 16px ${ctx.font.split(' ').pop()}`;
-            ctx.fillStyle = 'white';
+            ctx.fillStyle = selectedTheme.value === 'dark' ? 'white' : "black";
             ctx.fillText(values[i], x, y + offset);
         });
     }
@@ -84,7 +90,7 @@ const outerSegmentPlugin = {
                 ctx.lineTo(x, y); // Draw a line to the next vertex
             }
         }
-        ctx.fillStyle = 'rgba(105, 111, 251, 0.08)'; // Semi-transparent red
+        ctx.fillStyle = selectedTheme.value === 'dark' ? 'rgba(105, 111, 251, 0.12)' : 'rgba(105, 111, 251, 0.08)';
         ctx.fill();
         ctx.closePath();
 
@@ -104,62 +110,77 @@ const outerSegmentPlugin = {
         ctx.closePath();
 
         // Fill the area between the two boundaries (outermost segment)
-        ctx.fillStyle = 'rgba(105, 111, 251, 0.12)';
+        ctx.fillStyle = selectedTheme.value === 'dark' ? 'rgba(105, 111, 251, 0.08)' : 'rgba(105, 111, 251, 0.08)';
         ctx.fill();
 
         ctx.restore();
     }
 };
 
-
-const options = {
-    responsive: true,
-    maintainAspectRatio: false,
-    pointBorderWidth: 2,
-    pointRadius: 5,
-    scales: {
-        r: {
-            pointLabels: {
-                color: '#9E9E9E',
-                padding: 20,
-                callback: function () { return '' },
-            },
-            ticks: {
-                callback: function () { return "" },
-                backdropColor: "rgba(0, 0, 0, 0)",
-            },
-            angleLines: {
-                display: true,
-                color: 'rgba(105, 111, 251, 0.08)'
-            },
-            grid: {
+const options = computed(() => {
+    return {
+        responsive: true,
+        maintainAspectRatio: false,
+        borderWidth: 1,
+        pointRadius: 5,
+        backgroundColor: selectedTheme.value === 'dark' ? 'rgba(105, 111, 251)' : 'rgba(105, 111, 251, 0.32)',
+        borderColor: selectedTheme.value === 'dark' ? 'rgba(105, 111, 251, 0.8)' : 'rgba(105, 111, 251)',
+        pointBackgroundColor: selectedTheme.value === 'dark' ? 'rgba(105, 111, 251)' : 'rgba(105, 111, 251)',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgba(179,181,198,1)',
+        scales: {
+            r: {
+                pointLabels: {
+                    padding: 20,
+                    callback: function () { return '' },
+                },
+                ticks: {
+                    callback: function () { return "" },
+                    backdropColor: "rgba(0, 0, 0, 0)",
+                },
+                angleLines: {
+                    display: true,
+                    color: 'rgba(105, 111, 251, 0.08)'
+                },
+                grid: {
+                    display: false,
+                },
+                suggestedMin: 1000,
+                suggestedMax: 3000
+            }
+        },
+        plugins: {
+            legend: {
                 display: false,
             },
-            suggestedMin: 1000,
-            suggestedMax: 3000
-        }
-    },
-    plugins: {
-        legend: {
-            display: false,
+            tooltip: {
+                callbacks: {
+                    label: function (context) {
+                        return context.raw.toLocaleString();
+                    }
+                },
+                displayColors: false,
+            }
         },
-        tooltip: {
-            callbacks: {
-                label: function (context) {
-                    return context.raw.toLocaleString();
-                }
-            },
-            displayColors: false,
-        }
-    },
-}
+    }
+})
 
 const plugins = [customLabelsPlugin, outerSegmentPlugin]
+
+const radarChart = ref(null)
+
+watch(() => theme.global.current.value.dark, (newValue) => {
+    selectedTheme.value = newValue ? 'dark' : 'light';
+    if (radarChart.value?.chart) {
+        radarChart.value.chart.update();
+    }
+});
 
 </script>
 
 <template>
     <div class="position-relative" :style="{ height }">
-        <Radar :data="data" :options :plugins />
+        <Radar ref="radarChart" :data="data" :options :plugins />
     </div>
 </template>
