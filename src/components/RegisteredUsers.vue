@@ -59,6 +59,7 @@ const totalUser = computed(() => numberOfPremiumUsers.value + numberOfBasicUsers
             </div>
         </div>
     </v-card>
+    <v-skeleton-loader v-else type="card"></v-skeleton-loader>
 </template>
 
 <style scoped>

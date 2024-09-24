@@ -53,4 +53,5 @@ const revenueData = ref([
         </header>
         <LineChart :data label="Revenue" height="250px" />
     </v-card>
+    <v-skeleton-loader v-else type="card"></v-skeleton-loader>
 </template>

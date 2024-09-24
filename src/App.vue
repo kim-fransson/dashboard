@@ -9,18 +9,17 @@ import RegisteredUsers from './components/RegisteredUsers.vue';
 import ListOfIntegrations from './components/ListOfIntegrations.vue';
 
 const numbers = ref([])
-const loading = ref(false)
+const loaded = ref(false)
 
 onMounted(async () => {
   try {
-    loading.value = true
     await fetch('/api/numbers')
       .then((res) => res.json())
       .then((json) => (numbers.value = json.numbers))
   } catch (error) {
     // nothing 😈
   } finally {
-    loading.value = false
+    loaded.value = true
   }
 })
 
@@ -36,8 +35,11 @@ onMounted(async () => {
       <v-main>
         <v-container :fluid="true" class="mt-lg-10">
           <v-row>
-            <v-col v-for="number in numbers" :key="number.id">
+            <v-col v-if="loaded" v-for="number in numbers" :key="number.id">
               <NumberCard :number />
+            </v-col>
+            <v-col v-else v-for="skeleton in [1, 2, 3, 4]" :key="skeleton">
+              <v-skeleton-loader type="card"></v-skeleton-loader>
             </v-col>
           </v-row>
 

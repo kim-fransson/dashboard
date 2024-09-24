@@ -39,10 +39,9 @@ onMounted(async () => {
 </script>
 
 <template>
-    <v-card class="fill-height pa-4">
+    <v-card v-if="loaded" class="fill-height pa-4">
         <h2 class="text-h6 font-weight-bold mb-4">List of Integrations</h2>
-        <v-data-table v-if="loaded" :items="integrations" :headers item-value="application" show-select
-            hide-default-footer>
+        <v-data-table :items="integrations" :headers item-value="application" show-select hide-default-footer>
             <template v-slot:item.application="{ value }">
                 <div class="d-flex align-center ga-2">
                     <v-avatar class="border" rounded="0" size="small">
@@ -67,4 +66,6 @@ onMounted(async () => {
             </template>
         </v-data-table>
     </v-card>
+    <v-skeleton-loader v-else type="card"></v-skeleton-loader>
+
 </template>

@@ -20,8 +20,9 @@ onMounted(async () => {
 </script>
 
 <template>
-    <v-card class="fill-height pa-4">
+    <v-card v-if="loaded" class="fill-height pa-4">
         <h2 class="text-h6 font-weight-bold">Sales by Region</h2>
-        <RadarChart v-if="loaded" :data />
+        <RadarChart :data />
     </v-card>
+    <v-skeleton-loader v-else type="card"></v-skeleton-loader>
 </template>
