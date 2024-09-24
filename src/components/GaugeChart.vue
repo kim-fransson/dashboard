@@ -28,7 +28,7 @@ const plugins = []
 </script>
 
 <template>
-    <div class="position-relative" :style="{ height, margin: '-65px 0' }">
+    <div class="position-relative" :style="{ margin: '-65px 0' }">
         <Doughnut :data :options :plugins />
     </div>
 </template>

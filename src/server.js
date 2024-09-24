@@ -1,9 +1,8 @@
-import { createServer, Model, Factory } from 'miragejs'
+import { createServer, Model } from 'miragejs'
 import { generateNumbersData } from '@/utils/generateNumbersData'
 import { getLastMonths } from './utils/getLastMonths'
 import { generateRandomAmounts } from './utils/generateRandomAmounts'
 import { faker } from '@faker-js/faker'
-import { plugins } from 'chart.js'
 
 export function makeServer({ environment = 'test' }) {
   return createServer({
@@ -93,8 +92,31 @@ export function makeServer({ environment = 'test' }) {
           }
         }
       })
+      this.get('/integrations', () => {
+        return {
+          data: [
+            {
+              application: 'stripe',
+              type: 'Finance',
+              rate: faker.number.int({ min: 10, max: 90 }),
+              profit: Number.parseFloat(faker.finance.amount({ min: 5000, max: 20000, dec: 2 }))
+            },
+            {
+              application: 'zapier',
+              type: 'CRM',
+              rate: faker.number.int({ min: 10, max: 90 }),
+              profit: Number.parseFloat(faker.finance.amount({ min: 5000, max: 20000, dec: 2 }))
+            },
+            {
+              application: 'shopify',
+              type: 'Marketplace',
+              rate: faker.number.int({ min: 10, max: 90 }),
+              profit: Number.parseFloat(faker.finance.amount({ min: 5000, max: 20000, dec: 2 }))
+            }
+          ]
+        }
+      })
     },
-    seeds(server) {},
     factories: {}
   })
 }

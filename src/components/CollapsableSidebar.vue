@@ -1,6 +1,7 @@
 <script setup>
-import logo from "@/assets/logo.svg"
 import { ref } from "vue";
+
+import logo from '@/assets/logo.png'
 
 const drawer = ref(true);
 const rail = ref(true);
