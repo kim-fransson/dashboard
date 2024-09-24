@@ -1,6 +1,6 @@
-export function formatNumber(number) {
+export function formatNumber(number, minimumFractionDigits = 2, maximumFractionDigits = 2) {
   return new Intl.NumberFormat('en-US', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
+    minimumFractionDigits,
+    maximumFractionDigits
   }).format(number)
 }

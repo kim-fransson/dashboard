@@ -5,6 +5,7 @@ import TopNavigation from './components/TopNavigation.vue';
 import NumberCard from './components/NumberCard.vue';
 import SalesOverview from './components/SalesOverview.vue';
 import SalesRegion from './components/SalesRegion.vue';
+import RegisteredUsers from './components/RegisteredUsers.vue';
 
 const numbers = ref([])
 const loading = ref(false)
@@ -46,6 +47,12 @@ onMounted(async () => {
 
             <v-col cols="12" md="4">
               <SalesRegion />
+            </v-col>
+          </v-row>
+
+          <v-row>
+            <v-col cols="12" md="5">
+              <RegisteredUsers />
             </v-col>
           </v-row>
         </v-container>

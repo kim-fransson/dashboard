@@ -3,6 +3,7 @@ import { generateNumbersData } from '@/utils/generateNumbersData'
 import { getLastMonths } from './utils/getLastMonths'
 import { generateRandomAmounts } from './utils/generateRandomAmounts'
 import { faker } from '@faker-js/faker'
+import { plugins } from 'chart.js'
 
 export function makeServer({ environment = 'test' }) {
   return createServer({
@@ -62,6 +63,31 @@ export function makeServer({ environment = 'test' }) {
                 pointHoverBackgroundColor: '#fff',
                 pointHoverBorderColor: 'rgba(179,181,198,1)',
                 data: Array.from({ length: 6 }, () => faker.number.int({ min: 1250, max: 3000 }))
+              }
+            ]
+          }
+        }
+      })
+      this.get('/users', () => {
+        return {
+          data: {
+            labels: ['Premium Users', 'Basic Users'],
+            datasets: [
+              {
+                backgroundColor: ['rgba(105, 111, 251)', '#3a3d89'],
+                data: [
+                  faker.number.int({ min: 500, max: 4000 }),
+                  faker.number.int({ min: 200, max: 1000 })
+                ],
+                borderWidth: 0
+              },
+              // Background arc (lighter color)
+              {
+                data: [1],
+                backgroundColor: ['rgba(105, 111, 251, 0.2)'],
+                hoverBackgroundColor: ['rgba(105, 111, 251, 0.2)'],
+                borderWidth: 0,
+                cutout: '72%'
               }
             ]
           }
