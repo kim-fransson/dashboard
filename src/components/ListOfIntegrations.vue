@@ -16,7 +16,7 @@ const aliases = {
 const headers = [
     { title: 'Application', value: 'application' },
     { title: 'Type', value: 'type' },
-    { title: 'Rate', value: 'rate', width: '200px' }, // Set your desired width here
+    { title: 'Rate', value: 'rate', width: '30%' }, // Set your desired width here
     { title: 'Profit', value: 'profit' }
 ]
 
